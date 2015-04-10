@@ -26,9 +26,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Properties;
-import java.util.logging.FileHandler;
 import java.util.logging.Level;
-import java.util.logging.SimpleFormatter;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
@@ -200,7 +198,7 @@ public class TSPAFDExample {
 		Algorithm algorithm = AlgorithmFactory.getInstance().getAlgorithm(
 				algorithmname, properties, problem);
 		
-		Logger logger = LogToFile.setLoggerHanlder(Logger.getLogger("my.logger"), Level.FINEST, "TSP_"+algorithmname+"_"+instance.getName()+"_");  
+		Logger logger = LogToFile.setLoggerHanlder(Logger.getLogger("my.logger"), Level.FINEST, "TSP_"+algorithmname+"_AFD_"+instance.getName()+"_");  
 		logger.info("Iteration,Distance,Time"); //Log Header
 		int iteration = 0;
 		long stime;
@@ -226,15 +224,15 @@ public class TSPAFDExample {
 			// display current optimal solutions with red line
 			Tour best = toTour(algorithm.getResult().get(0));
 			panel.displayTour(best, Color.RED, new BasicStroke(2.0f));
+			// repaint the TSP display
+			panel.repaint();
+			
 			progress.insert(0, "Iteration " + iteration + ": " +
 					best.distance(instance) +" ¦@¥Î " + (System.currentTimeMillis()-stime)/1000 + " ¬í"+ "\n");
 			progressText.setText(progress.toString());
 			
 			//Log info
 			logger.info(iteration + ","+ best.distance(instance) +"," + (System.currentTimeMillis()-stime)/1000); 
-
-			// repaint the TSP display
-			panel.repaint();
 		}
 	}
 	

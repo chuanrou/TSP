@@ -26,6 +26,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
@@ -40,6 +42,7 @@ import org.moeaframework.core.Solution;
 import org.moeaframework.core.spi.AlgorithmFactory;
 import org.moeaframework.core.variable.EncodingUtils;
 import org.moeaframework.problem.AbstractProblem;
+import org.moeaframework.util.LogToFile;
 
 /**
  * Demonstration of optimizing a TSP problem using the MOEA Framework
@@ -182,15 +185,25 @@ public class TSP3OptExample {
 		properties.setProperty("insertion.rate", "0.9");
 		properties.setProperty("pmx.rate", "0.4");
 		
-		Algorithm algorithm = AlgorithmFactory.getInstance().getAlgorithm(
-				"NSGAII", properties, problem);
+		properties.setProperty("pm.rate", "1.0");
+		properties.setProperty("pm.distributionIndex", "20.0");
+		properties.setProperty("de.crossoverRate", "0.1");
+		properties.setProperty("de.stepSize", "0.5");
 		
+		
+		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
+		
+		String algorithmname = "NSGAIII";
+		
+		Algorithm algorithm = AlgorithmFactory.getInstance().getAlgorithm(
+				algorithmname, properties, problem);
+		
+		Logger logger = LogToFile.setLoggerHanlder(Logger.getLogger("my.logger"), Level.FINEST, "TSP_"+algorithmname+"_3Opt_"+instance.getName()+"_");  
+		logger.info("Iteration,Distance,Time"); //Log Header
 		int iteration = 0;
-
 		long stime;
 		//Reset currentTime
         stime = System.currentTimeMillis();
-
 		// now run the evolutionary algorithm
 		while (frame.isVisible()) {
 			algorithm.step();
@@ -211,12 +224,15 @@ public class TSP3OptExample {
 			// display current optimal solutions with red line
 			Tour best = toTour(algorithm.getResult().get(0));
 			panel.displayTour(best, Color.RED, new BasicStroke(2.0f));
-			progress.insert(0, "Iteration " + iteration + ": " +
-					best.distance(instance) +"共用 " + (System.currentTimeMillis()-stime)/1000 + " 秒"+ "\n");
-			progressText.setText(progress.toString());
-			
 			// repaint the TSP display
 			panel.repaint();
+			
+			progress.insert(0, "Iteration " + iteration + ": " +
+					best.distance(instance) +" 共用 " + (System.currentTimeMillis()-stime)/1000 + " 秒"+ "\n");
+			progressText.setText(progress.toString());
+			
+			//Log info
+			logger.info(iteration + ","+ best.distance(instance) +"," + (System.currentTimeMillis()-stime)/1000); 
 		}
 	}
 	

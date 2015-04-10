@@ -61,15 +61,21 @@ public class TSP3OptHeuristic {
 			
 			for (int i = 0; i < tour.size(); i++) {
 				for (int j = i+2; j < tour.size(); j++) {
-					double d1 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+1)) +
-							distanceTable.getDistanceBetween(tour.get(j), tour.get(j+1));
-					double d2 = distanceTable.getDistanceBetween(tour.get(i), tour.get(j)) +
-							distanceTable.getDistanceBetween(tour.get(i+1), tour.get(j+1));
-					
-					// if distance can be shortened, adjust the tour
-					if (d2 < d1) {
-						tour.reverse(i+1, j);
-						modified = true;
+					for (int k = j+2; k < tour.size(); j++) {
+						double d1 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+1)) +
+								distanceTable.getDistanceBetween(tour.get(j), tour.get(j+1)) +
+								distanceTable.getDistanceBetween(tour.get(k), tour.get(k+1));
+						double d2 = distanceTable.getDistanceBetween(tour.get(i), tour.get(j+1)) +
+								distanceTable.getDistanceBetween(tour.get(i+1), tour.get(k)) +
+								distanceTable.getDistanceBetween(tour.get(j), tour.get(k+1));
+						
+						// if distance can be shortened, adjust the tour
+						if (d2 < d1) {
+							tour.reverse(j, k);
+							tour.reverse(j+1, k);
+							tour.reverse(i+1, j+1);
+							modified = true;
+						}
 					}
 				}
 			}

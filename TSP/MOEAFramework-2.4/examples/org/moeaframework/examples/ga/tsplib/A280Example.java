@@ -43,7 +43,7 @@ public class A280Example {
 				System.exit(-1);
 			}
 			
-			TSPAFDExample.solve(is);
+			TSPExample.solve(is);
 		} finally {
 			if (is != null) {
 				is.close();
