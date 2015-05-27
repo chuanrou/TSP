@@ -15,10 +15,12 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
-package tsplib;
+package tsprun;
 
 import java.io.IOException;
 import java.io.InputStream;
+
+import tsplib.TSPGreedyExample;
 
 /**
  * Example of optimization using a permutation encoding to solve the traveling

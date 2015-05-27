@@ -193,7 +193,7 @@ public class TSPExample {
 		
 		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
 		
-		String algorithmname = "NSGAIII";
+		String algorithmname = "NSGAII";
 		
 		Algorithm algorithm = AlgorithmFactory.getInstance().getAlgorithm(
 				algorithmname, properties, problem);
