@@ -185,10 +185,10 @@ public class TSPExample {
 		properties.setProperty("insertion.rate", "0.9");
 		properties.setProperty("pmx.rate", "0.4");
 		
-		properties.setProperty("pm.rate", "1.0");
-		properties.setProperty("pm.distributionIndex", "20.0");
-		properties.setProperty("de.crossoverRate", "0.1");
-		properties.setProperty("de.stepSize", "0.5");
+		//properties.setProperty("pm.rate", "1.0");
+		//properties.setProperty("pm.distributionIndex", "20.0");
+		//properties.setProperty("de.crossoverRate", "0.1");
+		//properties.setProperty("de.stepSize", "0.5");
 		
 		
 		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
