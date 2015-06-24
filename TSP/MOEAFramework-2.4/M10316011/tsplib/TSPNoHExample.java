@@ -52,7 +52,7 @@ import org.moeaframework.util.LogToFile;
  * indicating the best tour found by the optimization algorithm.  Light gray
  * lines are the other (sub-optimal) tours in the population.
  */
-public class TSPExample {
+public class TSPNoHExample {
 	
 	/**
 	 * The color for population members.
@@ -109,7 +109,7 @@ public class TSPExample {
 		/**
 		 * The TSP heuristic for aiding the optimization process.
 		 */
-		private final TSP2OptHeuristic heuristic;
+		private final TSPNoHeuristic heuristic;
 		
 		/**
 		 * Constructs a new optimization problem for the given TSP problem
@@ -121,7 +121,7 @@ public class TSPExample {
 			super(1, 1);
 			this.instance = instance;
 			
-			heuristic = new TSP2OptHeuristic(instance);
+			heuristic = new TSPNoHeuristic(instance);
 		}
 
 		@Override
@@ -157,7 +157,7 @@ public class TSPExample {
 		
 		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
 		String algorithmname = "NSGAII";
-		String heuristicname = "2Opt";
+		String heuristicname = "No Heuristic";
 		
 		TSPPanel panel = new TSPPanel(instance);
 		panel.setAutoRepaint(false);

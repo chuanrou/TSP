@@ -153,6 +153,9 @@ public class TSPGreedyExample {
 	 * @param instance the TSPLIB instance to solve
 	 */
 	public static void solve(TSPInstance instance) {
+		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
+		String algorithmname = "NSGAII";
+		String heuristicname = "Greedy";
 		TSPPanel panel = new TSPPanel(instance);
 		panel.setAutoRepaint(false);
 		
@@ -163,7 +166,7 @@ public class TSPGreedyExample {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setTopComponent(panel);
 		splitPane.setBottomComponent(new JScrollPane(progressText));
-		splitPane.setDividerLocation(300);
+		splitPane.setDividerLocation(500);
 		splitPane.setResizeWeight(1.0);
 		
 		// display the panel on a window
@@ -188,11 +191,6 @@ public class TSPGreedyExample {
 		properties.setProperty("pm.distributionIndex", "20.0");
 		properties.setProperty("de.crossoverRate", "0.1");
 		properties.setProperty("de.stepSize", "0.5");
-		
-		
-		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
-		
-		String algorithmname = "NSGAIII";
 		
 		Algorithm algorithm = AlgorithmFactory.getInstance().getAlgorithm(
 				algorithmname, properties, problem);

@@ -154,6 +154,10 @@ public class TSPAFDExample {
 	 * @param instance the TSPLIB instance to solve
 	 */
 	public static void solve(TSPInstance instance) {
+		// algorithmname Model "NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
+		String algorithmname = "NSGAIII";
+		String heuristicname = "AFD";
+				
 		TSPPanel panel = new TSPPanel(instance);
 		panel.setAutoRepaint(false);
 		
@@ -164,15 +168,15 @@ public class TSPAFDExample {
 		JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setTopComponent(panel);
 		splitPane.setBottomComponent(new JScrollPane(progressText));
-		splitPane.setDividerLocation(300);
+		splitPane.setDividerLocation(500);
 		splitPane.setResizeWeight(1.0);
 		
 		// display the panel on a window
-		JFrame frame = new JFrame(instance.getName());
+		JFrame frame = new JFrame(instance.getName()+" ( "+heuristicname+" + "+algorithmname+" )");
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(500, 400);
+		frame.setSize(880, 660);
 		frame.setLocationRelativeTo(null);
 		frame.setIconImages(Settings.getIconImages());
 		frame.setVisible(true);
@@ -189,11 +193,6 @@ public class TSPAFDExample {
 		properties.setProperty("pm.distributionIndex", "20.0");
 		properties.setProperty("de.crossoverRate", "0.1");
 		properties.setProperty("de.stepSize", "0.5");
-		
-		
-		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
-		
-		String algorithmname = "NSGAIII";
 		
 		Algorithm algorithm = AlgorithmFactory.getInstance().getAlgorithm(
 				algorithmname, properties, problem);

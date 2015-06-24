@@ -1,0 +1,56 @@
+/* Copyright 2009-2015 David Hadka
+ *
+ * This file is part of the MOEA Framework.
+ *
+ * The MOEA Framework is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * The MOEA Framework is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU Lesser General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
+ */
+package tsprun;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+import tsplib.TSPAFDExample;
+
+/**
+ * Example of optimization using a permutation encoding to solve the traveling
+ * salesman problem (TSP) on the {@code eil51.tsp} instance.
+ */
+public class Eil51AFDExample {
+
+	/**
+	 * Starts the example running the TSP problem.
+	 * 
+	 * @param args the command line arguments
+	 * @throws IOException if an I/O error occurred
+	 */
+	public static void main(String[] args) throws IOException {
+		InputStream is = null;
+		
+		try {
+			is = Eil51AFDExample.class.getResourceAsStream("eil51.tsp");
+			
+			if (is == null) {
+				System.err.println("Unable to find the file eil51.tsp");
+				System.exit(-1);
+			}
+			
+			TSPAFDExample.solve(is);
+		} finally {
+			if (is != null) {
+				is.close();
+			}
+		}
+	}
+	
+}
