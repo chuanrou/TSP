@@ -102,7 +102,7 @@ public class Tour {
 	 * @param index the index
 	 * @param node the identifier of the node visited at the specified index
 	 */
-	private void set(int index, int node) {
+	public void set(int index, int node) {
 		while (index < 0) {
 			index += nodes.size();
 		}

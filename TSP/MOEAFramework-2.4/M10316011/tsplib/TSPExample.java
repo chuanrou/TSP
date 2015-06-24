@@ -156,7 +156,7 @@ public class TSPExample {
 	public static void solve(TSPInstance instance) {
 		
 		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
-		String algorithmname = "NSGAII";
+		String algorithmname = "MOEAD";
 		String heuristicname = "2Opt";
 		
 		TSPPanel panel = new TSPPanel(instance);
