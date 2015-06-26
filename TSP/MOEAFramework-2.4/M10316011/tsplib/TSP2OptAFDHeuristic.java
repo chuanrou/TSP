@@ -49,13 +49,10 @@ public class TSP2OptAFDHeuristic {
 	 */
 	public void applyGreedy(Tour tour) {
 		DistanceTable distanceTable = instance.getDistanceTable();
-		
 		// tours with 2 or fewer nodes are already optimal
 		if (tour.size() < 3) {
 			return;
-		}
-		
-			
+		}			
 			for (int i = 0; i < tour.size()-1; i++) {
 					double d1 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+1));
 					double d2 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+2));
@@ -64,9 +61,7 @@ public class TSP2OptAFDHeuristic {
 					if (d2 < d1) {
 						tour.reverse(i+1, i+2);
 					}
-
 			}
-
 	}
 	/**
 	 * Applies the 2-opt heuristic to the specified tour.
@@ -124,7 +119,6 @@ public class TSP2OptAFDHeuristic {
 		//nl：表示離基準點最遠的節點。
 		//依此規則分別將每一節點與其它節點的距離關係定義為歸屬度
 		
-		
 		double[][] dmaxsum; //動態門檻值
 		dmaxsum = new double[toursize][4];
 		double[][][] dArray; //歸屬度表
@@ -174,51 +168,62 @@ public class TSP2OptAFDHeuristic {
 		if (tour.size() < 4) {
 			return;
 		}
-		int[] atour = tour.toArray();
-			modified = false;
-			int nextn = -1;
-			double maxdf = 0;
-			int crosn = -1;
-			double md = 0.9; //動態門檻值
-			Random rand = new Random();
-			int  n = rand.nextInt(tour.size()-1);
-			atour[0] = tour1.get(n);
-			tour.reverse(0, tour.get(n));
-			if (md > dmaxsum[n][2]){
-				   md = dmaxsum[n][2];
-			}
-			else{
-				if (md < dLowAFD)
-					md =  dLowAFD;
-			}
-			dmaxsum[n][3] = 1;
-			for (int i = 1; i < tour.size(); i++) {
-				for (int j = 0; j < tour.size(); j++) {
-					if (dmaxsum[j][3]==0){
-						if (maxdf < dArray[n][j][1]){
-						maxdf = dArray[n][j][1];
-						nextn = j;
-						}
-						else{
-							crosn = j;
-						}
-						modified = true;
+		
+		//在基因配對模式中，我們採用歸屬度來決定基因配對的模式，其基因重組步驟類
+		//似於均勻交配法，然而本研究所採用的模式並非一定繼承親代的基因，基因交換特性
+		//趨向於「最佳化導向的基因演算法」，本研究的基因交配模式如下：
+		//一、隨機定義一節點做為起始點，並比較親代中該節點的連接點。
+		//二、若親代中連接節點的歸屬度符合本次挑選的門檻，則直接將親代中下一連接
+		//點加入。
+		//三、否則就在符合挑選門檻的節點中以隨機方式取出節點加入。
+		//四、若以隨機方式無法在符合歸屬條件的節點中找到可用節點，則將最接近的可
+		//用節點加入，成為下一連接點。
+		
+		modified = false;
+		int nextn = -1;   //最大歸屬度節點
+		int crosn = -1;   //最後節點
+		double maxdf = 0; //最大歸屬度
+		double md = 0.9;  //動態門檻值
+		Random rand = new Random();
+		int  n = rand.nextInt(tour.size()-1);  //隨機定義一節點做為起始點
+		tour.reverse(0, tour1.get(n));         //隨機定義節點取值
+		if (md > dmaxsum[n][2]){               //動態門檻值設定
+			   md = dmaxsum[n][2];
+		}
+		else{
+			if (md < dLowAFD)
+				md =  dLowAFD;
+		}
+		dmaxsum[n][3] = 1;
+		for (int i = 1; i < tour.size(); i++) {
+			for (int j = 0; j < tour.size(); j++) {
+				if (dmaxsum[j][3]==0){ //已取節點判別
+					if (maxdf < dArray[n][j][1]){
+					    maxdf = dArray[n][j][1];
+					    nextn = j;
 					}
-				}
-				if (modified){
-				   if (maxdf >= dLowAFD){
-					  tour.reverse(i, tour1.get(nextn));
-					  dmaxsum[nextn][3] = 1;
-					  n = nextn;
-				}
-				else{
-					tour.reverse(i, tour1.get(crosn));
-					dmaxsum[crosn][3] = 1;
-					n = crosn;
-				}
+					else{
+						crosn = j; //最後節點
+					}
+					modified = true;
 				}
 			}
-		apply2opt(tour);
+			if (modified){
+			   if (maxdf >= dLowAFD){    //判別歸屬度是否符合本次挑選的門檻
+				   tour.reverse(i, tour1.get(nextn)); //節點加入
+				   dmaxsum[nextn][3] = 1; 
+				   n = nextn;
+			   }
+			   else{                    //未符合本次挑選的門檻
+				   tour.reverse(i, tour1.get(crosn)); //將最接近的可用節點加入
+				   dmaxsum[crosn][3] = 1;
+				   n = crosn;
+			   }
+			   modified = false;
+			}
+		}
+		apply2opt(tour);    //2-Opt Heuristic
+		//applyGreedy(tour);
 	}
 	
 	/**
@@ -280,8 +285,6 @@ public class TSP2OptAFDHeuristic {
 			double d1 = 0;
 			double d2 = 0;
 			double md = 0.9;
-			Random rand = new Random();
-			int  n = rand.nextInt(tour.size()-1);
 			for (int i = 0; i < tour.size(); i++) {
 				modifiedj = true;
 				while (modifiedj){

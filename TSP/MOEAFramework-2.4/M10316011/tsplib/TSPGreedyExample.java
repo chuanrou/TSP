@@ -154,7 +154,7 @@ public class TSPGreedyExample {
 	 */
 	public static void solve(TSPInstance instance) {
 		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
-		String algorithmname = "NSGAII";
+		String algorithmname = "eNSGAII";
 		String heuristicname = "Greedy";
 		TSPPanel panel = new TSPPanel(instance);
 		panel.setAutoRepaint(false);
@@ -170,11 +170,11 @@ public class TSPGreedyExample {
 		splitPane.setResizeWeight(1.0);
 		
 		// display the panel on a window
-		JFrame frame = new JFrame(instance.getName());
+		JFrame frame = new JFrame(instance.getName()+" ( "+heuristicname+" + "+algorithmname+" )");
 		frame.getContentPane().setLayout(new BorderLayout());
 		frame.getContentPane().add(splitPane, BorderLayout.CENTER);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setSize(500, 400);
+		frame.setSize(880, 660);
 		frame.setLocationRelativeTo(null);
 		frame.setIconImages(Settings.getIconImages());
 		frame.setVisible(true);

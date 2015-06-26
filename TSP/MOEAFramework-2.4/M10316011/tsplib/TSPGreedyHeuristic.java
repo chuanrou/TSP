@@ -42,13 +42,36 @@ public class TSPGreedyHeuristic {
 		super();
 		this.instance = instance;
 	}
-
+	
 	/**
 	 * Applies the Greedy Algorithm heuristic to the specified tour.
 	 * 
 	 * @param tour the tour that is modified by the Greedy Algorithm heuristic
 	 */
 	public void apply(Tour tour) {
+		DistanceTable distanceTable = instance.getDistanceTable();
+		
+		// tours with 2 or fewer nodes are already optimal
+		if (tour.size() < 3) {
+			return;
+		}
+			for (int i = 0; i < tour.size()-1; i++) {
+					double d1 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+1));
+					double d2 = distanceTable.getDistanceBetween(tour.get(i), tour.get(i+2));
+					
+					// if distance can be shortened, adjust the tour
+					if (d2 < d1) {
+						tour.reverse(i+1, i+2);
+					}
+			}
+	}
+	
+	/**
+	 * Applies the Greedy Algorithm heuristic to the specified tour.
+	 * 
+	 * @param tour the tour that is modified by the Greedy Algorithm heuristic
+	 */
+	public void applyold(Tour tour) {
 		DistanceTable distanceTable = instance.getDistanceTable();
 		int toursize = tour.size();
 	    int startingPoint = new Random().nextInt(toursize);  //Random

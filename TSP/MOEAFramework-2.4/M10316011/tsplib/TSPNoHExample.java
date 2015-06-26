@@ -156,7 +156,7 @@ public class TSPNoHExample {
 	public static void solve(TSPInstance instance) {
 		
 		// algorithmname Model "MOEAD","GDE3","NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
-		String algorithmname = "NSGAII";
+		String algorithmname = "eNSGAII";
 		String heuristicname = "No Heuristic";
 		
 		TSPPanel panel = new TSPPanel(instance);
@@ -204,7 +204,7 @@ public class TSPNoHExample {
 		long stime;
 		//Reset currentTime
         stime = System.currentTimeMillis();
-		Logger logger = LogToFile.setLoggerHanlder(Logger.getLogger("my.logger"), Level.FINEST, "TSP_"+algorithmname+"_2Opt_"+instance.getName()+"_");  
+		Logger logger = LogToFile.setLoggerHanlder(Logger.getLogger("my.logger"), Level.FINEST, "TSP_"+algorithmname+"_NoH_"+instance.getName()+"_");  
 		logger.info("Iteration,Distance,Time"); //Log Header
 		// now run the evolutionary algorithm
 		while (frame.isVisible()) {

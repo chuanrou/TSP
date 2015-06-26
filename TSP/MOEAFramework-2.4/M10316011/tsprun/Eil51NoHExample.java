@@ -15,16 +15,18 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with the MOEA Framework.  If not, see <http://www.gnu.org/licenses/>.
  */
-package tsplib;
+package tsprun;
 
 import java.io.IOException;
 import java.io.InputStream;
 
+import tsplib.TSPNoHExample;
+
 /**
  * Example of optimization using a permutation encoding to solve the traveling
- * salesman problem (TSP) on the {@code pr76.tsp} instance.
+ * salesman problem (TSP) on the {@code a280.tsp} instance.
  */
-public class PR76Example {
+public class Eil51NoHExample {
 
 	/**
 	 * Starts the example running the TSP problem.
@@ -36,14 +38,14 @@ public class PR76Example {
 		InputStream is = null;
 		
 		try {
-			is = PR76Example.class.getResourceAsStream("pr76.tsp");
+			is = Eil51NoHExample.class.getResourceAsStream("eil51.tsp");
 			
 			if (is == null) {
-				System.err.println("Unable to find the file pr76.tsp");
+				System.err.println("Unable to find the file eil51.tsp");
 				System.exit(-1);
 			}
 			
-			TSPExample.solve(is);
+			TSPNoHExample.solve(is);
 		} finally {
 			if (is != null) {
 				is.close();

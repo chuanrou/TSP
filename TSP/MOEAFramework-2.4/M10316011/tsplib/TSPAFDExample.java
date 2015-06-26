@@ -155,7 +155,7 @@ public class TSPAFDExample {
 	 */
 	public static void solve(TSPInstance instance) {
 		// algorithmname Model "NSGAII","NSGAIII","eNSGAII","eMOEA","Random"
-		String algorithmname = "NSGAII";
+		String algorithmname = "eNSGAII";
 		String heuristicname = "AFD";
 				
 		TSPPanel panel = new TSPPanel(instance);
@@ -204,7 +204,7 @@ public class TSPAFDExample {
 		//Reset currentTime
         stime = System.currentTimeMillis();
 		// now run the evolutionary algorithm
-		while (frame.isVisible() && iteration < 1000) {
+		while (frame.isVisible()) {
 			algorithm.step();
 			iteration++;
 			

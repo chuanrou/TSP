@@ -20,13 +20,13 @@ package tsprun;
 import java.io.IOException;
 import java.io.InputStream;
 
-import tsplib.TSPExample;
+import tsplib.TSPNoHExample;
 
 /**
  * Example of optimization using a permutation encoding to solve the traveling
  * salesman problem (TSP) on the {@code a280.tsp} instance.
  */
-public class Berlin52Example {
+public class ATT48NoHExample {
 
 	/**
 	 * Starts the example running the TSP problem.
@@ -38,14 +38,14 @@ public class Berlin52Example {
 		InputStream is = null;
 		
 		try {
-			is = Berlin52Example.class.getResourceAsStream("berlin52.tsp");
+			is = ATT48NoHExample.class.getResourceAsStream("att48.tsp");
 			
 			if (is == null) {
-				System.err.println("Unable to find the file berlin52.tsp");
+				System.err.println("Unable to find the file att48.tsp");
 				System.exit(-1);
 			}
 			
-			TSPExample.solve(is);
+			TSPNoHExample.solve(is);
 		} finally {
 			if (is != null) {
 				is.close();
